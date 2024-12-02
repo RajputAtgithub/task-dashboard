@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import TaskList from './components/TaskList';
+import TaskForm from './components/TaskForm';
+import TaskFilters from './components/TaskFilters';
+import { Container, Typography } from '@mui/material';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Container>
+        <Typography variant="h4" gutterBottom>
+          Task Management Dashboard
+        </Typography>
+        <TaskForm />
+        <TaskFilters />
+        <TaskList />
+      </Container>
+    </Provider>
   );
-}
+};
 
 export default App;
