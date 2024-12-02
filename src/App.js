@@ -4,7 +4,9 @@ import { store } from './store';
 import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
 import TaskFilters from './components/TaskFilters';
-import { Container, Typography, MenuItem, Select, Box } from '@mui/material';
+import { Search } from '@mui/icons-material';
+import { Container, Typography, MenuItem, Select, Box, TextField, InputAdornment } from '@mui/material';
+import { setSearchQuery, searchQuery } from './taskSlice';
 
 const App = () => {
   const [editingTask, setEditingTask] = useState(null); // Task being edited
@@ -27,6 +29,9 @@ const App = () => {
     setAction(event.target.value); // Update the action (Add Task)
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value); // Update search query in Redux
+  };
   return (
     <Provider store={store}>
       <Container>
@@ -47,6 +52,20 @@ const App = () => {
             <MenuItem value="ADD">Add Task</MenuItem>
             {/* You can add more actions like "Edit Task" if needed */}
           </Select>
+          <TextField
+            variant="outlined"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            placeholder="Search by title"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ width: '250px' }}
+          />
         </Box>
 
         {/* Render TaskForm if action is to Add Task or if editing an existing task */}

@@ -5,6 +5,7 @@ const initialState = {
   filter: 'ALL',
   isFormVisible: false, // Track form visibility
   editingTask: null, // Track task being edited
+  searchQuery: null,
 };
 
 const taskSlice = createSlice({
@@ -40,6 +41,9 @@ const taskSlice = createSlice({
       state.isFormVisible = false;
       state.editingTask = null; // Clear editing task when closing the form
     },
+    setSearchQuery: (state, action) => {
+        state.searchQuery = action.payload; // Update the search query
+      },
   },
 });
 
@@ -50,7 +54,9 @@ export const {
   toggleTaskCompletion, 
   setFilter, 
   openForm, 
-  closeForm 
+  closeForm,
+  setSearchQuery,
+  searchQuery
 } = taskSlice.actions;
 
 export default taskSlice.reducer;
