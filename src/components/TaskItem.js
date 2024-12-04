@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleTaskCompletion, deleteTask } from '../redux/taskSlice'; 
-import { IconButton } from '@mui/material';
+import { IconButton , Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import { Link } from 'react-router-dom';
 const TaskItem = ({ task, onEdit }) => {
   const dispatch = useDispatch();
 
@@ -27,6 +27,11 @@ const TaskItem = ({ task, onEdit }) => {
                  padding: '10px', borderRadius: '5px' }}>
       <div style={{ flexGrow: 1 }}>
         <h4 style={{ color: task.completed ? 'green' : 'red' }}>{task.title}</h4>
+        <Link to={`/tasks/${task.id}`} style={{ textDecoration: 'none' }}>
+              <Button variant="contained" color="primary" sx={{ marginLeft: '10px' }}>
+                View Details
+              </Button>
+            </Link>
         <p>{task.description}</p>
         <p><strong>Due Date:</strong> {task.dueDate}</p>
       </div>

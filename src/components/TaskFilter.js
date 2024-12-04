@@ -20,7 +20,7 @@ const TaskFilter = () => {
         onChange={handleFilterChange}
         displayEmpty
         variant="outlined"
-        sx={{ width: '200px' }}
+        sx={{ width: '200px' ,marginBottom:'10px'}}
       >
         <MenuItem value="ALL">All Tasks</MenuItem>
         <MenuItem value="COMPLETED">Completed Tasks</MenuItem>
