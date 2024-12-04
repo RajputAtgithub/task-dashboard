@@ -15,19 +15,28 @@ const TaskFilter = () => {
 
   return (
     <Box>
-      <Select
-        value={filterValue}
-        onChange={handleFilterChange}
-        displayEmpty
-        variant="outlined"
-        sx={{ width: '200px' ,marginBottom:'10px'}}
-      >
-        <MenuItem value="ALL">All Tasks</MenuItem>
-        <MenuItem value="COMPLETED">Completed Tasks</MenuItem>
-        <MenuItem value="PENDING">Pending Tasks</MenuItem>
-        <MenuItem value="OVERDUE">Overdue Tasks</MenuItem>
-      </Select>
-    </Box>
+    <Select
+      value={filterValue}
+      onChange={handleFilterChange}
+      displayEmpty
+      variant="outlined"
+      sx={{
+        width: {
+          xs: '150px', // Small devices (phones)
+          sm: '200px', // Medium devices (tablets)
+          md: '250px', // Large devices (desktops)
+          lg: '300px', // Extra-large devices
+        },
+        marginBottom: '10px',
+      }}
+    >
+      <MenuItem value="ALL">All Tasks</MenuItem>
+      <MenuItem value="COMPLETED">Completed Tasks</MenuItem>
+      <MenuItem value="PENDING">Pending Tasks</MenuItem>
+      <MenuItem value="OVERDUE">Overdue Tasks</MenuItem>
+    </Select>
+  </Box>
+  
   );
 };
 

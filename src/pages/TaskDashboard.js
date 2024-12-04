@@ -33,35 +33,67 @@ const TaskDashboard = () => {
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>
-        Task Management Dashboard
-      </Typography>
+<Typography
+  variant="h4"
+  gutterBottom
+  sx={{
+    fontSize: {
+      xs: '1.5rem', // Small devices (phones)
+      sm: '2rem',   // Medium devices (tablets)
+      md: '2.5rem', // Large devices (desktops)
+      lg: '3rem',   // Extra-large devices
+    },
+  }}
+>
+  Task Management Dashboard
+</Typography>
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-        {/* Search Field */}
-        <TextField
-          variant="outlined"
-          placeholder="Search Tasks"
-          onChange={handleSearchChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            ),
-          }}
-          sx={{ width: '250px' }}
-        />
+<Box
+  sx={{
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: { xs: 'column', sm: 'row' }, // Column layout for smaller devices
+    alignItems: { xs: 'flex-start', sm: 'center' }, // Align items based on the layout
+    gap: '10px', // Add spacing between elements
+    marginBottom: '20px',
+  }}
+>
+  {/* Search Field */}
+  <TextField
+    variant="outlined"
+    placeholder="Search Tasks"
+    onChange={handleSearchChange}
+    InputProps={{
+      startAdornment: (
+        <InputAdornment position="start">
+          <Search />
+        </InputAdornment>
+      ),
+    }}
+    sx={{
+      width: {
+        xs: '50%', // Full width on small devices
+        sm: '250px', // Fixed width on medium and larger devices
+      },
+    }}
+  />
 
-        {/* Add Task Button */}
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleAddTaskClick}
-        >
-          Add Task
-        </Button>
-      </Box>
+  {/* Add Task Button */}
+  <Button
+    variant="contained"
+    color="primary"
+    onClick={handleAddTaskClick}
+    sx={{
+      width: {
+        xs: '50%', // Full width on small devices
+        sm: 'auto', // Auto width on medium and larger devices
+      },
+    }}
+  >
+    Add Task
+  </Button>
+</Box>
+
 
       {/* Task Filter */}
       <TaskFilter />

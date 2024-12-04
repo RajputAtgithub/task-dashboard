@@ -28,7 +28,7 @@ const TaskItem = ({ task, onEdit }) => {
       <div style={{ flexGrow: 1 }}>
         <h4 style={{ color: task.completed ? 'green' : 'red' }}>{task.title}</h4>
         <Link to={`/tasks/${task.id}`} style={{ textDecoration: 'none' }}>
-              <Button variant="contained" color="primary" sx={{ marginLeft: '10px' }}>
+              <Button variant="contained" color="primary">
                 View Details
               </Button>
             </Link>
