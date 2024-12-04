@@ -1,53 +1,80 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTask, editTask } from '../taskSlice';
+import { addTask, editTask } from '../redux/taskSlice';
 import { TextField, Button, Box } from '@mui/material';
 
-const TaskForm = ({ existingTask = null, onClose }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
-  const dispatch = useDispatch();
 
-  // Populate the form if editing an existing task
+const TaskForm = ({ existingTask, onClose }) => {
+  const dispatch = useDispatch();
+  const [task, setTask] = useState({
+    title: '',
+    description: '',
+    dueDate: '',
+  });
+
   useEffect(() => {
     if (existingTask) {
-      setTitle(existingTask.title);
-      setDescription(existingTask.description);
-      setDueDate(existingTask.dueDate);
+      setTask({
+        title: existingTask.title,
+        description: existingTask.description,
+        dueDate: existingTask.dueDate,
+      });
     }
   }, [existingTask]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     if (existingTask) {
-      // Dispatch editTask action
-      dispatch(editTask({ id: existingTask.id, updates: { title, description, dueDate } }));
+      dispatch(editTask({ id: existingTask.id, updates: task }));
     } else {
-      // Dispatch addTask action
-      dispatch(addTask({ id: Date.now(), title, description, dueDate }));
+      dispatch(addTask(task));
     }
-    setTitle('');
-    setDescription('');
-    setDueDate('');
-    if (onClose) onClose(); // Close the modal or reset the form
+    onClose();
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <TextField label="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-      <TextField label="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
-      <TextField type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} required />
-      <Box sx={{ display: 'flex', gap: 2 }}>
-        <Button type="submit" variant="contained">
-          {existingTask ? 'Update Task' : 'Add Task'}
-        </Button>
-        {onClose && (
-          <Button variant="outlined" onClick={onClose}>
-            Cancel
-          </Button>
-        )}
-      </Box>
+    <Box component="form" onSubmit={handleSubmit} sx={{ marginBottom: '20px' }}>
+      <TextField
+        label="Title"
+        variant="outlined"
+        fullWidth
+        value={task.title}
+        onChange={(e) => setTask({ ...task, title: e.target.value })}
+        sx={{ marginBottom: '10px',marginTop:'5px' }}
+      />
+      <TextField
+        label="Description"
+        variant="outlined"
+        fullWidth
+        value={task.description}
+        onChange={(e) => setTask({ ...task, description: e.target.value })}
+        sx={{ marginBottom: '10px' }}
+      />
+      <TextField
+        label="Due Date"
+        variant="outlined"
+        fullWidth
+        type="date"
+        value={task.dueDate}
+        onChange={(e) => setTask({ ...task, dueDate: e.target.value })}
+        sx={{marginBottom: '10px',
+          '.MuiInputLabel-root': {
+            textAlign: 'left', // Center-align the label text
+            width: '100%', // Ensures the label covers the entire width
+            transformOrigin: 'left', // Centers the transformation point
+          },
+          '.MuiInputLabel-shrink': {
+            textAlign: 'left', // Adjust alignment when the label shrinks
+          },
+        }}
+        InputLabelProps={{
+          shrink: true, // Ensures label stays visible when date is selected
+        }}
+      />
+      <Button type="submit" variant="contained">
+        {existingTask ? 'Update' : 'Add'} {/* Dynamic text based on existingTask */}
+      </Button>
+      <Button onClick={onClose} variant="outlined" sx={{ marginLeft: '10px' }}>Cancel</Button>
     </Box>
   );
 };
